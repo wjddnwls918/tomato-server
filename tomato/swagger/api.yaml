@@ -1,0 +1,2031 @@
+swagger: "2.0"
+##info:
+##  title: Tomato API
+##  description: Tomato REST API Document
+##  version: 0.0.1
+host: 192.249.19.125:6580
+##basePath:
+schemes:
+  - http
+
+
+paths:
+##users
+
+  /users:
+     get:
+      tags :
+        - users
+      summary: 공통 / 전체 사용자 조회
+      parameters:
+        - in: header
+          name: x-access-token
+          type: string
+#          required: true
+      description: get all users
+      produces:
+        - application/json
+      security:
+        - jwt: []
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+
+     post:
+      tags :
+        - users
+      summary: 공통 / 사용자 삽입
+      description: 공통 / 사용자 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: users
+          description: insert user
+          required: true
+          schema:
+            type: object
+            required:
+              - name,email,phone_number,password
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              phone_number:
+                type: string
+              password:
+                type: string
+      responses:
+       200:
+         description: insert success
+
+
+  /users/login:
+     post:
+      tags :
+        - users
+      summary: 사용자 로그인
+      description: 사용자 로그인
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: users
+          description: user login
+          required: true
+          schema:
+            type: object
+            required:
+              - email,password
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+       200:
+         description: login success
+
+  /users/profile:
+     get:
+      tags :
+        - users
+      summary: 사용자 / 마이페이지 - 1)	프로필 정보 가져오기
+      description: 사용자 / 마이페이지 - 1)	프로필 정보 가져오기
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+  /users/name:
+     put:
+      tags :
+        - users
+      summary: 사용자 / 마이페이지 - 5)	이름 수정
+      description: 사용자 / 마이페이지 - 5)	이름 수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: users
+          description: update name
+          required: true
+          schema:
+            type: object
+            required:
+              - id,name
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+  /users/email:
+     put:
+      tags :
+        - users
+      summary: 사용자 / 마이페이지 - 4)	이메일 수정
+      description: 사용자 / 마이페이지 - 4)	이메일 수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: users
+          description: update email
+          required: true
+          schema:
+            type: object
+            required:
+              - id,email
+            properties:
+              id:
+                type: integer
+              email:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+
+  /users/phone-number:
+     put:
+      tags :
+        - users
+      summary: 사용자 / 마이페이지 - 5)	전화번호 수정
+      description: 사용자 / 마이페이지 - 5)	전화번호 수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: users
+          description: update phone_number
+          required: true
+          schema:
+            type: object
+            required:
+              - id,phone_number
+            properties:
+              id:
+                type: integer
+              phone_number:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+  /users/password:
+     put:
+      tags :
+        - users
+      summary: 사용자 / 마이페이지 - 6)	비밀번호 수정
+      description: 사용자 / 마이페이지 - 6)	비밀번호 수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: users
+          description: update password
+          required: true
+          schema:
+            type: object
+            required:
+              - id,password
+            properties:
+              id:
+                type: integer
+              password:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+  /users/profile-photo:
+     put:
+      tags :
+        - users
+      summary: 사용자 / 마이페이지 - 2)	사진 수정
+      description: 사용자 / 마이페이지 - 2)	사진 수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: users
+          description: update profile image
+          required: true
+          schema:
+            type: object
+            required:
+              - id,profile_photo
+            properties:
+              id:
+                type: integer
+              profile_photo:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+  /users/test:
+     get:
+      tags :
+        - users
+      summary: users test
+      description: users test
+      produces:
+        - application/json
+      parameters:
+        - name: users_id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/users'
+
+##categories
+  /categories:
+     get:
+      tags :
+        - categories
+      summary: 공통 / 전체 카테고리 조회
+      description: 공통 / 전체 카테고리 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/categories'
+
+     post:
+      tags :
+        - categories
+      summary: 공통 / 카테고리 삽입
+      description: 공통 / 카테고리 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: categories
+          description: insert category
+          required: true
+          schema:
+            type: object
+            required:
+              - category,division,section,comment
+            properties:
+              category:
+                type: string
+              division:
+                type: string
+              section:
+                type: string
+              comment:
+                type: string
+      responses:
+       200:
+         description: login success
+
+  /categories/topten:
+     get:
+      tags :
+        - categories
+      summary: 사용자 / 홈 - 7)	검색창에서 인기서비스(소분류) 10개 가져오기
+      description: 사용자 / 홈 - 7)	검색창에서 인기서비스(소분류) 10개 가져오기
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/categories'
+
+  /categories/popular-section:
+     get:
+      tags :
+        - categories
+      summary: 사용자 / 홈 - 2) 해당 대분류에 해당하는 인기 소분류 리스트 불러오기(9개)
+      description: 사용자 / 홈 - 2) 해당 대분류에 해당하는 인기 소분류 리스트 불러오기(9개)
+      produces:
+        - application/json
+      parameters:
+        - name: category
+          in : query
+          required: true
+          type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/categories'
+
+  /categories/section-info:
+     get:
+      tags :
+        - categories
+      summary: 사용자 / 홈 - 3) 소분류 클릭시 별점, 활동 고수, 누적 요청서, 리뷰수, 한줄 소개 가져오기
+      description: 사용자 / 홈 - 3) 소분류 클릭시 별점, 활동 고수, 누적 요청서, 리뷰수, 한줄 소개 가져오기
+      produces:
+        - application/json
+      parameters:
+        - name: section
+          in : query
+          required: true
+          type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/categories'
+
+  /categories/division/section:
+     get:
+      tags :
+        - categories
+      summary: 사용자 / 홈 - 1) 해당 대분류에 해당하는 중분류, 소분류 불러오기
+      description: 사용자 / 홈 - 1) 해당 대분류에 해당하는 중분류, 소분류 불러오기
+      produces:
+        - application/json
+      parameters:
+        - name: category
+          in : query
+          required: true
+          type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/categories'
+
+##chats
+  /chats:
+     get:
+      tags :
+        - chats
+      summary: 공통 / 전체 채팅 조회
+      description: 공통 / 전체 채팅 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/chats'
+
+     post:
+      tags :
+        - chats
+      summary: 공통 / 채팅 삽입
+      description: 공통 / 채팅 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: chats
+          description: insert chat
+          required: true
+          schema:
+            type: object
+            required:
+              - user_name,messages,input_time,users_id,experts_id
+            properties:
+              user_name:
+                type: string
+              messages:
+                type: string
+              input_time:
+                type: string
+              users_id:
+                type: string
+              experts_id:
+                type: string
+      responses:
+       200:
+         description: insert success
+
+##deals
+  /deals:
+     get:
+      tags :
+        - deals
+      summary: 공통 / 전체 거래 조회
+      description: 공통 / 전체 거래 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/deals'
+
+     post:
+      tags :
+        - deals
+      summary: 공통 / 거래 삽입
+      description: 공통 / 거래 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: deals
+          description: insert deal
+          required: true
+          schema:
+            type: object
+            required:
+              - account_number,account_bank,account_name,estimates_id,safe_deals,deal_dates
+            properties:
+              account_number:
+                type: string
+              account_bank:
+                type: string
+              account_name:
+                type: string
+              estimates_id:
+                type: integer
+              safe_deals:
+                type: string
+              deal_dates:
+                type: string
+                format: date-time
+      responses:
+       200:
+         description: insert success
+
+##estimates
+  /estimates:
+     get:
+      tags :
+        - estimates
+      summary: 공통 / 전체 견적서 조회
+      description: 공통 / 전체 견적서 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/estimates'
+
+     post:
+      tags :
+        - estimates
+      summary: 공통 / 견적서 삽입
+      description: 공통 / 견적서 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: estimates
+          description: insert estimate
+          required: true
+          schema:
+            type: object
+            required:
+              - title,content,cost_type,experts_id,users_id,cost
+            properties:
+              title:
+                type: string
+              content:
+                type: string
+              cost_type:
+                type: string
+              experts_id:
+                type: integer
+              users_id:
+                type: string
+              cost:
+                type: string
+                format: date-time
+      responses:
+       200:
+         description: insert success
+
+
+  /estimates/test:
+     get:
+      tags :
+        - estimates
+      summary: test
+      description: test
+      produces:
+        - application/json
+      parameters:
+        - name: requests_id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/estimates'
+
+  /estimates/chat-list:
+     get:
+      tags :
+        - estimates
+      summary: 사용자 / 채팅 - 1)	채팅 리스트 가져오기(이름, 소분류, 지역, 설명, 예상금액, 날짜)
+      description: 사용자 / 채팅 - 1)	채팅 리스트 가져오기(이름, 소분류, 지역, 설명, 예상금액, 날짜)
+      produces:
+        - application/json
+      parameters:
+        - name: users_id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/requests'
+
+  /estimates/user:
+     get:
+      tags :
+        - estimates
+      summary: 전문가 / 받은 요청 - 4)	자주쓰는 견적 메세지 목록 불러오기
+      description: 전문가 / 받은 요청 - 4)	자주쓰는 견적 메세지 목록 불러오기
+      produces:
+        - application/json
+      parameters:
+        - name: experts_id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/estimates'
+
+
+  /estimates/expert:
+     get:
+      tags :
+        - estimates
+      summary: 전문가 / 채팅 - 1)	견적서 보낸 요청서 목록 가져오기
+      description: 전문가 / 채팅 - 1)	견적서 보낸 요청서 목록 가져오기
+      produces:
+        - application/json
+      parameters:
+        - name: experts_id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/estimates'
+
+##experts
+  /experts:
+     get:
+      tags :
+        - experts
+      summary: 공통 / 전체 전문가 조회
+      description: 공통 / 전체 전문가 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+     post:
+      tags :
+        - experts
+      summary: 공통 / 전문가 삽입
+      description: 공통 / 전문가 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: insert expert
+          required: true
+          schema:
+            type: object
+            required:
+              - name,email,phone_number,password,service,area, movable_distance, gender,authentication
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              phone_number:
+                type: string
+              password:
+                type: string
+              service:
+                type: string
+              area:
+                type: string
+              movable_distance:
+                type: string
+              gender:
+                type: string
+              authentication:
+                type: string
+      responses:
+       200:
+         description: insert success
+
+  /experts/register:
+     post:
+      tags :
+        - experts
+      summary: 전문가 / 전문가 회원가입
+      description: 전문가 / 전문가 회원가입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: insert expert
+          required: true
+          schema:
+            type: object
+            required:
+              - name,email,phone_number,password,service,area, movable_distance, gender,authentication
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              phone_number:
+                type: string
+              password:
+                type: string
+              service:
+                type: string
+              area:
+                type: string
+              movable_distance:
+                type: string
+              gender:
+                type: string
+              authentication:
+                type: string
+      responses:
+       200:
+         description: insert success
+
+  /experts/login:
+     post:
+      tags :
+        - experts
+      summary: 전문가 / 전문가 로그인
+      description: 전문가 / 전문가 로그인
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: expert login
+          required: true
+          schema:
+            type: object
+            required:
+              - email,password
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+       200:
+         description: login success
+
+  /experts/list:
+     get:
+      tags :
+        - experts
+      summary: 사용자 / 고수찾기 - 1)	고수찾기에서 고수 리스트 불러오기(10개씩 페이징), 최근 활동순으로
+      description: 사용자 / 고수찾기 - 1)	고수찾기에서 고수 리스트 불러오기(10개씩 페이징), 최근 활동순으로
+      produces:
+        - application/json
+      parameters:
+        - name: offset
+          in : query
+          required: true
+          type: integer
+        - name: limit
+          in : query
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/profile:
+     get:
+      tags :
+        - experts
+      summary: 사용자 / 고수찾기 - 3)	고수 프로필 가져오기
+      description: 사용자 / 고수찾기 - 3)	고수 프로필 가져오기
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/area/service:
+     get:
+      tags :
+        - experts
+      summary: 사용자 / 고수찾기 - 2)	필터 선택시 (지역, 서비스) 적용하여 리스트 가져오기
+      description: 사용자 / 고수찾기 - 2)	필터 선택시 (지역, 서비스) 적용하여 리스트 가져오기
+      produces:
+        - application/json
+      parameters:
+        - name: offset
+          in : query
+          required: true
+          type: integer
+        - name: limit
+          in : query
+          required: true
+          type: integer
+        - name: area
+          in : query
+          type: string
+        - name: service
+          in : query
+          type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/mypage:
+     get:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 1)	프로필 가져오기
+      description: 전문가 / 프로필 - 1)	프로필 가져오기
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/mypage/alarm:
+     get:
+      tags :
+        - experts
+      summary: 전문가 / 전문가 알림 시간 조회
+      description: 전문가 / 전문가 알림 시간 조회
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+     put:
+      tags :
+        - experts
+      summary: updte experts alarm time
+      description: update experts alarm time
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: mypage
+          description: update alarm time
+          required: true
+          schema:
+            type: object
+            required:
+              - id,start_alarm_time,end_alarm_time
+            properties:
+              id:
+                type: integer
+              start_alarm_time:
+                type: integer
+              end_alarm_time:
+                type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/is-exposed:
+     put:
+      tags :
+        - experts
+      summary: 전문가 정보 노출 설정
+      description: 전문가 정보 노출 설정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: isexposed
+          description: update options
+          required: true
+          schema:
+            type: object
+            required:
+              - id,is_exposed
+            properties:
+              id:
+                type: integer
+              is_exposed:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/name:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 마이페이지 - 이름 수정 , 전문가 / 프로필 - 5)	이름 등록/수정
+      description: 전문가 / 마이페이지 - 이름 수정 , 전문가 / 프로필 - 5)	이름 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update name
+          required: true
+          schema:
+            type: object
+            required:
+              - id,name
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/email:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 마이페이지 - 3)	이메일 등록
+      description: 전문가 / 마이페이지 - 3)	이메일 등록
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update email
+          required: true
+          schema:
+            type: object
+            required:
+              - id,email
+            properties:
+              id:
+                type: integer
+              email:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/phone-number:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 마이페이지 -	4)	전화번호 등록/수정
+      description: 전문가 / 마이페이지 -	4)	전화번호 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update phone_number
+          required: true
+          schema:
+            type: object
+            required:
+              - id,phone_number
+            properties:
+              id:
+                type: integer
+              phone_number:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/password:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 마이페이지 - 5)	비밀번호 수정
+      description: 전문가 / 마이페이지 - 5)	비밀번호 수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update password
+          required: true
+          schema:
+            type: object
+            required:
+              - id,password
+            properties:
+              id:
+                type: integer
+              password:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/profile-photo:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 1)	사진 등록/수정 , 전문가 / 마이페이지 - 1)	사진 등록/수정
+      description: 전문가 / 프로필 - 1)	사진 등록/수정 , 전문가 / 마이페이지 - 1)	사진 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update profile image
+          required: true
+          schema:
+            type: object
+            required:
+              - id,profile_photo
+            properties:
+              id:
+                type: integer
+              profile_photo:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/account:
+     get:
+      tags :
+        - experts
+      summary: get expert's bank account
+      description: get expert's bank account
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/service:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 6)	대표서비스 등록/수정
+      description: 전문가 / 프로필 - 6)	대표서비스 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update service
+          required: true
+          schema:
+            type: object
+            required:
+              - id,service
+            properties:
+              id:
+                type: integer
+              service:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/one-line-description:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 7)	한줄소개 등록/수정
+      description: 전문가 / 프로필 - 7)	한줄소개 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update one_line_description
+          required: true
+          schema:
+            type: object
+            required:
+              - id,one_line_description
+            properties:
+              id:
+                type: integer
+              one_line_description:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/area:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 9)	활동지역 등록/수정
+      description: 전문가 / 프로필 - 9)	활동지역 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update area
+          required: true
+          schema:
+            type: object
+            required:
+              - id,area
+            properties:
+              id:
+                type: integer
+              area:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/movable-distance:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 10)	이동가능거리 등록/수정
+      description: 전문가 / 프로필 - 10)	이동가능거리 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update movable_distance
+          required: true
+          schema:
+            type: object
+            required:
+              - id,movable_distance
+            properties:
+              id:
+                type: integer
+              movable_distance:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/contact-time:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 11)	연락가능시간 등록/수정
+      description: 전문가 / 프로필 - 11)	연락가능시간 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update contact_start_time and contact_end_time
+          required: true
+          schema:
+            type: object
+            required:
+              - id,contact_start_time, contact_end_time
+            properties:
+              id:
+                type: integer
+              contact_start_time:
+                type: integer
+              contact_end_time:
+                type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/career:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 13)	경력 등록/수정
+      description: 전문가 / 프로필 - 13)	경력 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update career
+          required: true
+          schema:
+            type: object
+            required:
+              - id,career
+            properties:
+              id:
+                type: integer
+              career:
+                type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/number-of-employees:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 14)	직원수 등록/수정
+      description: 전문가 / 프로필 - 14)	직원수 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update number_of_employees
+          required: true
+          schema:
+            type: object
+            required:
+              - id,number_of_employees
+            properties:
+              id:
+                type: integer
+              number_of_employees:
+                type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/service-description:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 18)	서비스 상세 설명 등록/수정
+      description: 전문가 / 프로필 - 18)	서비스 상세 설명 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update service_description
+          required: true
+          schema:
+            type: object
+            required:
+              - id,service_description
+            properties:
+              id:
+                type: integer
+              service_description:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+  /experts/video-and-picture:
+     put:
+      tags :
+        - experts
+      summary: 전문가 / 프로필 - 19)	사진 및 동영상 등록/수정
+      description: 전문가 / 프로필 - 19)	사진 및 동영상 등록/수정
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: update video_and_picture
+          required: true
+          schema:
+            type: object
+            required:
+              - id,video_and_picture
+            properties:
+              id:
+                type: integer
+              video_and_picture:
+                type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/experts'
+
+##questions
+  /questions:
+     get:
+      tags :
+        - questions
+      summary: 공통 / 전체 질문 조회
+      description: 공통 / 전체 질문 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/questions'
+
+     post:
+      tags :
+        - questions
+      summary: 공통 / 질문 삽입
+      description: 공통 / 질문 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: experts
+          description: insert question
+          required: true
+          schema:
+            type: object
+            required:
+              - categories_id,question_number,question_contents,choice_contents
+            properties:
+              categories_id:
+                type: integer
+              question_number:
+                type: integer
+              question_contents:
+                type: string
+              choice_contents:
+                type: string
+      responses:
+       200:
+         description: insert success
+
+##requests
+  /requests:
+     get:
+      tags :
+        - requests
+      summary: 공통 / 전체 요청서 조회
+      description: 공통 / 전체 요청서 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/requests'
+
+     post:
+      tags :
+        - requests
+      summary: 공통 / 요청서 삽입
+      description: 공통 / 요청서 삽입
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: requests
+          description: insert request
+          required: true
+          schema:
+            type: object
+            required:
+              - answer,section,users_id,is_receive, date_time_request, questions_id
+            properties:
+              answer:
+                type: string
+              section:
+                type: string
+              users_id:
+                type: integer
+              is_receive:
+                type: string
+              date_time_request:
+                type: string
+                format: date-time
+              questions_id:
+                type: integer
+      responses:
+       200:
+         description: insert success
+
+  /requests/my-request:
+     get:
+      tags :
+        - requests
+      summary: get my request by requests id
+      description: get my request by requests id
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/requests'
+
+  /requests/user:
+     get:
+      tags :
+        - requests
+      summary: 사용자 / 보낸 요청 - 1)	보낸 요청 리스트 가져오기(제목, 날짜, 견적서 보낸 고수 이미지, 마감 여부)
+      description: 사용자 / 보낸 요청 - 1)	보낸 요청 리스트 가져오기(제목, 날짜, 견적서 보낸 고수 이미지, 마감 여부)
+      produces:
+        - application/json
+      parameters:
+        - name: users_id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/requests'
+
+  /requests/list:
+     get:
+      tags :
+        - requests
+      summary: 전문가 / 받은 요청 - 1)	요청서 목록 가져오기 (전문가 전체서비스 기준으로)
+      description: 전문가 / 받은 요청 - 1)	요청서 목록 가져오기 (전문가 전체서비스 기준으로)
+      produces:
+        - application/json
+      parameters:
+        - name: all_service
+          in : query
+          required: true
+          type: string
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/requests'
+
+  /requests/chat:
+     get:
+      tags :
+        - requests
+      summary: 전문가 / 채팅 - 5)	받은 요청서보여주기
+      description: 전문가 / 채팅 - 5)	받은 요청서보여주기
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in : query
+          required: true
+          type: integer
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/requests'
+
+
+##reviews
+  /reviews:
+     get:
+      tags :
+        - reviews
+      summary: 공통 / 전체 리뷰 조회
+      description: 공통 / 전체 리뷰 조회
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/reviews'
+
+     post:
+      tags :
+        - reviews
+      summary: 사용자 / 채팅 - 6)	리뷰 작성하기
+      description: 사용자 / 채팅 - 6)	리뷰 작성하기
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: reviews
+          description: insert review
+          required: true
+          schema:
+            type: object
+            required:
+              - score,review,users_id,experts_id
+            properties:
+              score:
+                type: integer
+              review:
+                type: string
+              users_id:
+                type: integer
+              experts_id:
+                type: integer
+      responses:
+       200:
+         description: insert success
+
+
+  /reviews/expert-average:
+     get:
+      tags :
+        - reviews
+      summary: 전문가 / 프로필 - 3)	리뷰 평점, 리뷰수, 고용수 가져오기
+      description: 전문가 / 프로필 - 3)	리뷰 평점, 리뷰수, 고용수 가져오기
+      parameters:
+        - name: experts_id
+          in : query
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+       200:
+         description: ok
+         schema:
+           type: array
+           items:
+             $ref: '#/definitions/reviews'
+
+
+##security
+securityDefinitions:
+  jwt:
+    type: apiKey
+    in: header
+    name: x-access-token
+
+
+##model definitions
+
+##categories
+definitions:
+  categories:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: int
+        description: 서비스분야 id
+      request_count:
+        type: int
+        description: 카테고리별 요청서 수
+      expert_count:
+        type: int
+        description: 카테고리별 전문가 수
+      review_count:
+        type: int
+        description: 카테고리별 리뷰 수
+      category:
+        type: varchar(45)
+        description: 대분류
+      division:
+        type: varchar(45)
+        description: 중분류
+      section:
+        type: varchar(45)
+        description: 소분류
+      comment:
+        type: varchar(255)
+        description: 소분류 한 줄 소개
+      section_photo:
+        type: varchar(255)
+        description: 소분류 사진 위치와 이름
+
+##chats
+  chats:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: int
+        description: 견적서 id
+      user_name:
+        type: varchar(255)
+        description: 사용자 이름
+      messages:
+        type: varchar(255)
+        description: 채팅 내용
+      input_time:
+        type: datetime
+        description: 입력 시간
+      users_id:
+        type: int
+        description: 사용자 id
+      experts_id:
+        type: int
+        description: 전문가 id
+
+##deals
+  deals:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: int
+        description: 거래 id
+      account_number:
+        type: varchar(45)
+        description: 계좌 번호
+      account_bank:
+        type: varchar(45)
+        description: 은행 이름
+      account_name:
+        type: varchar(255)
+        description: 예금자 이름
+      estimates_id:
+        type: int
+        description: 견적서 id
+      safe_deals:
+        type: varchar(255)
+        description: 안전 거래
+      deal_dates:
+        type: datetitme
+        description: 거래 날짜
+
+##estimates
+  estimates:
+    type: object
+    required:
+     - content
+    properties:
+      id:
+        type: int
+        description: 견적서 id
+      title:
+        type: varchar(255)
+        description: 자주 쓰는 견적메시지
+      content:
+        type: varchar(255)
+        description: 견적 내용
+      cost_type:
+        type: varchar(1)
+        description: 견적 금액 형태(시간당, 총 액)
+      experts_id:
+        type: int
+        description: 전문가 id
+      users_id:
+        type: int
+        description: 사용자 id
+      cost:
+        type: int
+        description: 금액
+      is_connected:
+        type: varchar(1)
+        description: 연결 여부
+      frequent_request:
+        type: varchar(1)
+        description: 자주쓰는 견적 여부
+      file_request:
+        type: varchar(255)
+        description: 견적서 파일 위치와 이름
+
+##experts
+  experts:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: int
+        description: 전문가 id
+      name:
+        type: varchar(255)
+        description: 이름
+      email:
+        type: varchar(255)
+        description: 이메일
+      phone_number:
+        type: varchar(255)
+        description: 전화번호
+      password:
+        type: varchar(255)
+        description: 비밀번호
+      start_alarm_time:
+        type: int(2)
+        description: 알람 받는 시작 시간
+      end_alarm_time:
+        type: int(2)
+        description: 알람 받는 마지막 시간
+      service:
+        type: varchar(255)
+        description: 대표서비스
+      area:
+        type: varchar(255)
+        description: 활동지역
+      movable_distance:
+        type: varchar(5)
+        description: 이동거리
+      gender:
+        type: varchar(1)
+        description: 성별
+      authentication:
+        type: varchar(1)
+        description: 전화 실명인증여부
+      contact_start_time:
+        type: int(2)
+        description: 연락 가능 시작 시간
+      contact_end_time:
+        type: int(2)
+        description: 연락 가능 종료 시간
+      method_of_payment:
+        type: varchar(255)
+        description: 지불방법
+      career:
+        type: int
+        description: 경력
+      number_of_employees:
+        type: int
+        description: 직원 수
+      business_registration:
+        type: varchar(1)
+        description: 사업자 등록증
+      certificate:
+        type: varchar(1)
+        description: 자격증
+      all_service:
+        type: varchar(255)
+        description: 제공 서비스 (토큰분류)
+      service_description:
+        type: varchar(255)
+        description: 서비스 상세 설명
+      homepage:
+        type: varchar(255)
+        description: 홈페이지
+      facebook:
+        type: varchar(255)
+        description: 페이스북 주소
+      twitter:
+        type: varchar(255)
+        description: 트위터 id
+      instagram:
+        type: varchar(255)
+        description: 인스타그램 주소
+      blog:
+        type: varchar(255)
+        description: 블로그 주소
+      kakao_stroy:
+        type: varchar(255)
+        description: 카카오 스토리 주소
+      login_time:
+        type: datetime
+        description: 로그인 시간
+      is_exposed:
+        type: varchar(1)
+        description: 공개 여부
+      oneline_desc:
+        type: varchar(255)
+        description: 한줄 소개
+      account_number:
+        type: varchar(45)
+        description: 계좌 번호
+      account_bank:
+        type: varchar(45)
+        description: 은행 이름
+      account_name:
+        type: varchar(255)
+        description: 예금자 이름
+      profile_photo:
+        type: varchar(255)
+        description: 프로필 사진 파일 위치와 이름
+      video_and_picture:
+        type: varchar(255)
+        description: 동영상사진 파일 위치와 이름
+      certificate_photo:
+        type: varchar(255)
+        description: 자격증 파일 위치와 이름
+      business_regstration_photo:
+        type: varchar(255)
+        description: 사업자 등록증 위치와 이름
+
+##questions
+  questions:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: int
+        description: 질의서 id
+      categories_id:
+        type: int
+        description: 카테고리 id
+      question_number:
+        type: int
+        description: 질문번호
+      question_contents:
+        type: varchar(255)
+        description: 질문 내용
+      choice_contents:
+        type: varchar(255)
+        description: 선택지 내용
+
+##requests
+  requests:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: int
+        description: 요청서 id
+      answer:
+        type: varchar(255)
+        description: 요청 질문에 대한 답변
+      section:
+        type: varchar(255)
+        description: 서비스 종류
+      users_id:
+        type: int
+        description: 사용자 아이디
+      request_state:
+        type: varchar(1)
+        description: 요청 중단 여부
+      is_receive:
+        type: varchar(1)
+        description: 견적 수신 여부
+      date_time_request:
+        type: datetime
+        description: 요청서 작성 시간
+      budget_type:
+        type: varchar(45)
+        description: 예상 금액 형태(시간당, 총액)
+      budget:
+        type: int
+        description: 예상 금액
+      questions_id:
+        type: int
+        description: 요청 질의서 id
+
+##reviews
+  reviews:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: int
+        description: 리뷰 id
+      score:
+        type: int
+        description: 평점
+      review:
+        type: varchar(255)
+        description: 리뷰 내용
+      users_id:
+        type: int
+        description: 사용자 id
+      experts_id:
+        type: int
+        description: 전문가 id
+
+##users
+  users:
+    type: object
+    required:
+      - content
+    properties:
+      id:
+        type: integer
+        description: 사용자 id
+      name:
+        type: string
+        description: 이름
+      email:
+        type: string
+        description: 이메일
+      phone_number:
+        type: string
+        description: 전화번호
+      password:
+        type: string
+        description: 비밀번호
+      start_alarm_time:
+        type: integer
+        description: 알람 받는 시작 시간
+      end_alarm_time:
+        type: integer
+        description: 알람 받는 마지막 시간
+      profile_photo:
+        type: string
+        description: 사진 파일 위치와 이름
